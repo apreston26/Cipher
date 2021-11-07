@@ -52,8 +52,9 @@ void characterHandler()
         }
       if (dataCounter == 2 && chars != ',')
 	{
-	  printf("%d\n", cipherSolver(lcg_m, lcg_c, flag, chars));
+	  
 	}
+       putchar(cipherSolver(126,25,flag,chars));
       if (chars == '\n')
         {
 	  lcg_m = 0;
@@ -76,21 +77,21 @@ int cipherSolver(int m, int c, int flag, int b)
 {
   struct LinearCongruentialGenerator lcg = makeLCG(m,c);
   int eByte = 0;
-  
-   while(TRUE)
+  if (flag == EFLAG)
     {
-      unsigned long x = getNextRandomValue(&lcg);
-      eByte = x ^ b;
-      if (eByte < 32)
-	{
-	  printf("*");
-	  return '@' + eByte;
-	}
-      if (eByte > 32 && eByte <= 127)
-	{
-	  return eByte;
-	}
+	  unsigned long x = getNextRandomValue(&lcg);
+	  eByte = x ^ b;
+	  if (eByte < 32)
+	    {
+	      printf("*");
+	      return ('@' + eByte);
+	    }
+	  if (eByte > 32 && eByte <= 127)
+	    {
+	      return eByte;
+	    }
     }
+  return -1;
 }
     
     
